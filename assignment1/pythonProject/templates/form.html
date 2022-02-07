@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>ADB Assignment 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+</head>
+
+
+<body>
+
+<div>
+    <form method="POST" action="/search">
+        <label>Search by Name</label>
+        <input type="text" name="username" id="username"><br/>
+
+        <!--			<label>Enter person Salary</label>-->
+        <!--			<input type="number" name="salary" id="salary"><br/>-->
+        <!--			<label>Enter person Keywords</label>-->
+        <!--			<input type="text" name="keywords" id="keywords"><br/><br/>-->
+        <input type="submit" name="Submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
+

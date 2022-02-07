@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>ADB Assignment 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+
+</head>
+<body>
+
+  <div class>
+    <p>Name: {{ data[0].Name }}</p>
+    <p>State: {{ data[0].State }}</p>
+    <p>Salary: {{ data[0].Salary }}</p>
+    <p>Grade: {{ data[0].Grade }}</p>
+    <p>Room: {{ data[0].Room }}</p>
+    <p>telnum: {{ data[0].Telnum }}</p>
+    <p>Picture: {{ data[0].Picture }}</p>
+    <p>Keywords: {{ data[0].Keywords }}</p>
+
+
+      <img src={{data[1]}} width='auto' height='200' style='margin: 0.5em 0;'/>
+  </div>
+
+
+</body>
+</html>

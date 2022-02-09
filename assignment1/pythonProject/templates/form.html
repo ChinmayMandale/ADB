@@ -11,16 +11,15 @@
 
 
 <body>
-
+<h1><a href="{{ url_for('index') }}">ADB Assignment 1</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
 <div>
     <form method="POST" action="/search">
         <label>Search by Name</label>
         <input type="text" name="username" id="username"><br/>
-
-        <!--			<label>Enter person Salary</label>-->
-        <!--			<input type="number" name="salary" id="salary"><br/>-->
-        <!--			<label>Enter person Keywords</label>-->
-        <!--			<input type="text" name="keywords" id="keywords"><br/><br/>-->
+        <label>Search by Salary</label>
+        <input type="text" name="salary" id="salary"><br/>
         <input type="submit" name="Submit" value="Submit">
     </form>
 </div>

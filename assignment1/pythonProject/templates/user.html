@@ -8,24 +8,27 @@
     <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
     <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
 </head>
-
-
 <body>
-
+<h1><a href="{{ url_for('index') }}">ADB Assignment 1</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
 <div>
-
     <div class="container">
-        <p>Name: {{ data[0].Name }}</p>
-        <p>State: {{ data[0].State }}</p>
-        <p>Salary: {{ data[0].Salary }}</p>
-        <p>Grade: {{ data[0].Grade }}</p>
-        <p>Room: {{ data[0].Room }}</p>
-        <p>telnum: {{ data[0].Telnum }}</p>
-        <p>Picture: {{ data[0].Picture }}</p>
-        <p>Keywords: {{ data[0].Keywords }}</p>
+        {% for dataElement in data %}
 
+        <hr style="width:90%">
+        <p>Name: {{ dataElement.Name }}</p>
+        <p>State: {{ dataElement.State }}</p>
+        <p>Salary: {{ dataElement.Salary }}</p>
+        <p>Grade: {{ dataElement.Grade }}</p>
+        <p>Room: {{ dataElement.Room }}</p>
+        <p>telnum: {{ dataElement.Telnum }}</p>
+        <p>Picture: {{ dataElement.Picture }}</p>
+        <p>Keywords: {{ dataElement.Keywords }}</p>
+        <img src = {{dataElement.ImageURL}} alt="No_image_available" width='auto' height='200' style='margin: 0.5em 0;'/>
+        <hr style="width:90%">
 
-        <img src={{data[1]}} alt="No image available" width='auto' height='200' style='margin: 0.5em 0;'/>
+        {% endfor %}
     </div>
 </div>
 

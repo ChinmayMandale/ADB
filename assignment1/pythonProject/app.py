@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import pandas as pd
 import pyodbc
 from azure.storage.blob import BlobServiceClient
 
@@ -22,6 +21,17 @@ except Exception as e:
     print("Creating container...")
     container_client = blob_service_client.create_container(container_name)
 
+def getImageUrl(imageName):
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+    try:
+        container_client = blob_service_client.get_container_client(container_name)
+        container_client.get_container_properties()
+    except Exception as e:
+        print(e)
+        print("Creating container...")
+        container_client = blob_service_client.create_container(container_name)
+    blob_client = container_client.get_blob_client(imageName)
+    return blob_client.url
 
 @app.route('/')
 def index():
@@ -33,24 +43,75 @@ def uploadFiles():
     if uploaded_file.filename != '':
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
         uploaded_file.save(file_path)
-        parseCSV(file_path) # save the file
     return redirect(url_for('index'))
 
 
 @app.route("/search", methods=['POST','GET'])
-def search():
+def searchByName():
     if request.method == 'POST':
         name = request.form.get("username")
-        print(name)
-        return redirect(f'/user/{name}')
+        if name != '':
+            return redirect(f'/userName/{name}')
+        salary = request.form.get("salary")
+        if salary != '':
+            return redirect(f'/userSalary/{salary}')
+
 
 @app.route("/form")
 def form():
     return render_template('form.html')
 
 
-@app.route("/user/<name>")
-def user(name):
+class Person:
+  def __init__(self, Name, State = '', Salary = '', Grade = '', Room = '', Telnum = '', Picture = '', Keywords = '', ImageURL = ''):
+    self.Name = Name
+    self.State = State
+    self.Salary = Salary
+    self.Grade = Grade
+    self.Room = Room
+    self.Telnum = Telnum
+    self.Picture = Picture
+    self.Keywords = Keywords
+    self.ImageURL = ImageURL
+
+
+@app.route("/allPeople")
+def allPeople():
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM people;""")
+    data = []
+    users = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    for user in users:
+        imageUrl = "_"
+        if user.Picture != None:
+            imageUrl = getImageUrl(user.Picture)
+        data.append(Person(user.Name, user.State, user.Salary, user.Grade, user.Room, user.Telnum, user.Picture, user.Keywords, imageUrl))
+    return render_template('user.html', data = data)
+
+
+@app.route("/userSalary/<salary>")
+def userSalary(salary):
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM people WHERE salary <= ?""", salary)
+    users = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    data = []
+    for user in users:
+        imageUrl = "_"
+        if user.Picture != None:
+            imageUrl = getImageUrl(user.Picture)
+        data.append(Person(user.Name, user.State, user.Salary, user.Grade, user.Room, user.Telnum, user.Picture, user.Keywords, imageUrl))
+    return render_template('user.html', data = data)
+
+
+
+@app.route("/userName/<name>")
+def userName(name):
     conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM people WHERE name = ?""", name)
@@ -58,12 +119,12 @@ def user(name):
     conn.commit()
     conn.close()
     data = []
-    data.append(user)
     blob_client = container_client.get_blob_client(user.Picture)
-    img_html = blob_client.url
-    data.append(img_html)
+    imageUrl = "_"
+    if user.Picture != None:
+        imageUrl = getImageUrl(user.Picture)
+    data.append(Person(user.Name, user.State, user.Salary, user.Grade, user.Room, user.Telnum, user.Picture, user.Keywords, imageUrl))
     return render_template('user.html', data = data)
-
 
 
 @app.route("/upload-photos")
@@ -97,6 +158,7 @@ def view_photos():
             </div>
     """ + img_html + "</div></body>"
 
+
 @app.route("/upload-photos", methods=["POST"])
 def upload_photos():
     filenames = ""
@@ -109,28 +171,11 @@ def upload_photos():
             print("Ignoring duplicate filenames")  # ignore duplicate filenames
     return redirect('/upload-photos')
 
-def parseCSV(filePath):
-    csvData = pd.read_csv(filePath, index_col=False)
-    csvData.head()
-    # df = pd.DataFrame(csvData)
-    # cursor.execute("drop table if exists people;")
-    # cursor.execute('''CREATE TABLE people
-    # (Name nvarchar(50) primary key,
-    # State nvarchar(50),
-    # Salary nvarchar(50),
-    # Grade nvarchar(50),
-    # Room nvarchar(50),
-    # Telnum nvarchar(50),
-    # Picture nvarchar(50),
-    # Keywords nvarchar(50))''')
-    #
-    # for index, row in csvData.interrows():
-    #     cursor.executemany('''
-    #     INSERT INTO people (Name, State, Salary, Grade, Room, Telnum, Picture, Keywords) VALUES (?,?,?,?,?,?,?,?)
-    #     ''',row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
-    databaseConnectionString.commit()
-    databaseConnectionString.close()
-
 
 if (__name__ == "__app__"):
     app.run(port = 5000)
+#
+# cursor.execute("""DELETE FROM csvdemo where Name=?;""", name)
+# cursor.execute("""UPDATE csvdemo set Keywords=? where Name=?;""",keywords,name)
+# cursor.execute("""UPDATE csvdemo set Salary=? where Name=?;""", salary, name)
+# cursor.execute("""UPDATE csvdemo set Picture=? where Name=?;""", filename, name)

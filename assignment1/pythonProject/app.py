@@ -9,9 +9,12 @@ app.config["DEBUG"] = True
 UPLOAD_FOLDER = 'static/files'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+#Database Connection String
 connect_str = 'DefaultEndpointsProtocol=https;AccountName=chinmaystorageaccount;AccountKey=7B2eUPyikZVLzGP5EdlpaRQV4IG1dckKbG/4q3gnNFPnLs78yvLkpt77BctLUUwwwH++yIJuD/WW1lBOoqK4Dw==;EndpointSuffix=core.windows.net'
-container_name = "assignment1container"
 
+
+#Container data - get container client
+container_name = "assignment1container"
 blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 try:
     container_client = blob_service_client.get_container_client(container_name)
@@ -21,6 +24,7 @@ except Exception as e:
     print("Creating container...")
     container_client = blob_service_client.create_container(container_name)
 
+#Get image url of uploaded photos
 def getImageUrl(imageName):
     blob_service_client = BlobServiceClient.from_connection_string(connect_str)
     try:
@@ -33,10 +37,12 @@ def getImageUrl(imageName):
     blob_client = container_client.get_blob_client(imageName)
     return blob_client.url
 
+#Link to home page
 @app.route('/')
 def index():
     return render_template('index.html')
 
+#Upload files to static folder
 @app.route("/", methods=['POST'])
 def uploadFiles():
     uploaded_file = request.files['file']
@@ -46,6 +52,7 @@ def uploadFiles():
     return redirect(url_for('index'))
 
 
+#Search people by criteria
 @app.route("/search", methods=['POST','GET'])
 def searchByName():
     if request.method == 'POST':
@@ -57,11 +64,13 @@ def searchByName():
             return redirect(f'/userSalary/{salary}')
 
 
+#Form for search criteria
 @app.route("/form")
 def form():
     return render_template('form.html')
 
 
+#Object created to store Person data with default empty fields
 class Person:
   def __init__(self, Name, State = '', Salary = '', Grade = '', Room = '', Telnum = '', Picture = '', Keywords = '', ImageURL = ''):
     self.Name = Name
@@ -75,6 +84,7 @@ class Person:
     self.ImageURL = ImageURL
 
 
+#Display all people in data
 @app.route("/allPeople")
 def allPeople():
     conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
@@ -92,6 +102,7 @@ def allPeople():
     return render_template('user.html', data = data)
 
 
+#Search people by Salary
 @app.route("/userSalary/<salary>")
 def userSalary(salary):
     conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
@@ -109,7 +120,7 @@ def userSalary(salary):
     return render_template('user.html', data = data)
 
 
-
+#Search people by Name
 @app.route("/userName/<name>")
 def userName(name):
     conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
@@ -127,6 +138,7 @@ def userName(name):
     return render_template('user.html', data = data)
 
 
+#View Photos uploaded to azure container
 @app.route("/upload-photos")
 def view_photos():
     blob_items = container_client.list_blobs()
@@ -159,6 +171,7 @@ def view_photos():
     """ + img_html + "</div></body>"
 
 
+#Upload photos to azure container
 @app.route("/upload-photos", methods=["POST"])
 def upload_photos():
     filenames = ""

@@ -90,6 +90,21 @@ def nightTimeData(startTimeHr, endTimeHr):
     return earthquakes
 
 
+
+#Search Earthquake by NightTime
+def searchByDates(startDate, endDate):
+
+    conn = pyodbc.connect(
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=assignment2database;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM [dbo].[all_month] WHERE type='earthquake' AND datepart(hh, time) >= ? OR datepart(hh, time) <= ?""", startTimeHr, endTimeHr)
+    earthquakes = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return earthquakes
+
+
+
 #Search All Earthquakes
 def allData():
     conn = pyodbc.connect(
@@ -156,7 +171,7 @@ def searchByRange(range1,range2):
 if (__name__ == "__app__"):
     app.run(port = 5000)
 #
-# cursor.execute("""DELETE FROM csvdemo where Name=?;""", name)
+# SELECT TOP 5 * FROM all_month ORDER BY mag DESC
 # cursor.execute("""UPDATE csvdemo set Keywords=? where Name=?;""",keywords,name)
 # cursor.execute("""UPDATE csvdemo set Salary=? where Name=?;""", salary, name)
 # cursor.execute("""UPDATE csvdemo set Picture=? where Name=?;""", filename, name)

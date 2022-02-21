@@ -2,12 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d23d272c-0f61-4191-bcc9-cec561db5bf5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/uploadPhotos.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/user.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/.idea/quiz1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz1/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/flaskForms/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/flaskForms/templates/data.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/flaskForms/templates/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/templates/data.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/templates/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/templates/formDistanceRange.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/templates/formMagnitudeRange.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment2/testAssignment2/templates/nightData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +45,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">

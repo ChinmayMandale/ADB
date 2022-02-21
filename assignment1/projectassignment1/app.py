@@ -57,11 +57,27 @@ def uploadFiles():
 def searchByName():
     if request.method == 'POST':
         name = request.form.get("username")
-        if name != '':
-            return redirect(f'/userName/{name}')
         salary = request.form.get("salary")
-        if salary != '':
-            return redirect(f'/userSalary/{salary}')
+        if request.form.get("Delete"):
+            #Code for delete entry
+            if name != '' and salary == '':
+                deletePerson(name)
+                return redirect(f'/allPeople')
+
+        elif request.form.get("Update"):
+            print("Inside update")
+            if name != '' and salary != '':
+                updateSalary(name, salary)
+                return redirect(f'/userName/{name}')
+
+        elif request.form.get("Submit"):
+            if name != '':
+                return redirect(f'/userName/{name}')
+            elif salary != '':
+                return redirect(f'/userSalary/{salary}')
+
+        else:
+            return redirect(f'/allPeople')
 
 
 #Form for search criteria
@@ -100,6 +116,26 @@ def allPeople():
             imageUrl = getImageUrl(user.Picture)
         data.append(Person(user.Name, user.State, user.Salary, user.Grade, user.Room, user.Telnum, user.Picture, user.Keywords, imageUrl))
     return render_template('user.html', data = data)
+
+
+
+#Update person salary
+def updateSalary(name, salary):
+    print("Inside update function")
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""UPDATE people set Salary=? where Name=?;""", salary, name)
+    conn.commit()
+    conn.close()
+
+
+#Delete person
+def deletePerson(name):
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=assignment1db1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""DELETE FROM people where Name=?;""", name)
+    conn.commit()
+    conn.close()
 
 
 #Search people by Salary
@@ -187,8 +223,3 @@ def upload_photos():
 
 if (__name__ == "__app__"):
     app.run(port = 5000)
-#
-# cursor.execute("""DELETE FROM csvdemo where Name=?;""", name)
-# cursor.execute("""UPDATE csvdemo set Keywords=? where Name=?;""",keywords,name)
-# cursor.execute("""UPDATE csvdemo set Salary=? where Name=?;""", salary, name)
-# cursor.execute("""UPDATE csvdemo set Picture=? where Name=?;""", filename, name)

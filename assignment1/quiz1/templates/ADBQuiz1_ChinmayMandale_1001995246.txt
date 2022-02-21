@@ -1,0 +1,204 @@
+
+Name:Chinmay Mandale
+Last 4 digits ID: 1001995246
+
+CSE 6331, Cloud Computing					
+
+
+Quiz Q1, Spring 2022   (c) DL, UTA, 2022
+
+
+  C&P means cut and paste only those relevant lines from your program(s) into this quiz.
+
+
+ 1.  I understand that I am on my honor during this quiz, I will not collaborate, use 
+     non-allowed sources, and I will not discuss or share this quiz with anyone for the next 
+     12 hours.
+     You MAY: use Google to search, use previous source code, 
+     YOU MAY NOT use:
+     Email, Facebook, Hangouts, IM, chats, Skype or ANY other human connection.
+
+     This is a timed test. Late tests will have points deducted for being late.
+     Very late tests will not be graded.
+
+     When you are complete, with any part, please show or send the link, raise your hand, so we may visually inspect that part.
+
+     The second part of the test, you should electronically submit, you will need to copy and paste 
+     only those lines of code to implement that part of the test, usually a few (two to eight) lines of code. 
+     Place it immediately after the question.
+
+     Submit this Quiz (renamed) with code cut and pasted, ONLY text. DO NOT submit zips, binaries, libraries,
+     or anything other than text.
+
+     When any parts(questions) are complete complete, submit this test, you may make multiple submissions.
+
+     If you have computer, or other, problems, please raise your hand immediately.
+
+     If you understand and agree, please initial here:
+     CM
+     _________________
+
+ 2. Get files from this same folder.
+   
+ 3. Name your program/submission with your name and last digits of your ID.
+    Chinmay Mandale 1001995246
+
+ 4. Using the cloud services provider, all functionality possible should be implemented on that provider.
+    (Of course, displaying web pages through a browser and the user interface is "local")
+    The cloud provider is MS Azure.
+
+ 5. Upload all data files (*jpg and *csv, not this quiz) to the cloud service.
+
+ 6. For this quiz you do not need to use any database, if you don't want to do so. For any part where information is insufficient
+    (not enough data or not possible) please show "no information or picture available".
+  
+Show and submit code, when each part is complete, raise your hand and then show us:
+
+ 10. Show a web page and interface (which resides on the cloud provider) with your name in large letters as it appears on your ID card, 
+     as well as your the last 5 digits of your student ID in large font above your name at the top of every web page dispayed 
+     (for this quiz)
+     On the first page show the picture woolf.jpg below ID number and name.
+
+
+
+HTML Code:
+<!doctype html>
+<html>
+<head>
+    <title>ADB Quiz 1</title></head>
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Quiz 1</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+    <p><a href="{{ url_for('form') }}">Search by criteria</a></p>
+    <p><a href="{{ url_for('allPeople') }}">All People</a></p>
+
+<div class="container">
+
+<hr style="width:90%">
+        <img src="https://chinmaystorageaccount.blob.core.windows.net/assignment1container/woolf.jpg" alt="No_image_available" width="auto" height="200" style="margin: 0.5em 0;">
+<hr style="width:90%">
+
+    </div>
+</body>
+</html>
+
+
+Python Flask:
+
+
+
+
+
+ 11. Show the object names, min and max for each object on a web page.
+
+All objects:
+
+Python Flask code:
+
+#Display all people in data
+@app.route("/allPeople")
+def allPeople():
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=quiz1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM data;""")
+    data = []
+    users = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    for user in users:
+        imageUrl = "_"
+        if user.picture != None:
+            imageUrl = getImageUrl(user.picture)
+        data.append(Person(user.object, user.min, user.max, user.picture, user.charm, imageUrl))
+    return render_template('user.html', data = data)
+
+
+
+
+
+ 12. Show a web interface (page) where we will give you a value V, show all objects, charm, and pictures for any object where
+     V is between min and max.
+
+
+
+#Search people by V
+@app.route("/userByValue/<value>")
+def userName(name):
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=quiz1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM people WHERE min<= ? && max>= ?""", , value)
+    user = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    data = []
+    blob_client = container_client.get_blob_client(user.Picture)
+    imageUrl = "_"
+    if user.Picture != None:
+        imageUrl = getImageUrl(user.Picture)
+    data.append(Person(user.object, user.min, user.max, user.picture, user.charm, imageUrl))
+    return render_template('user.html', data = data)
+
+
+
+
+
+
+
+
+ 13. Show a web interface (page) where we will give you a word and show us all objects, min, max, charm and pictures 
+     where charm has that word (in the charm string.):
+
+Python Flask:
+
+
+#Object created to store Person data with default empty fields
+class Person:
+  def __init__(self, object, min = '', max = '', picture = '', charm = '', ImageURL = ''):
+    self.object = object
+    self.min = min
+    self.max = max
+    self.picture = picture
+    self.charm = charm
+    self.ImageURL = ImageURL
+
+
+#Search people by criteria
+@app.route("/search", methods=['POST','GET'])
+def searchByCharm():
+    if request.method == 'POST':
+        charm = request.form.get("charm")
+        if charm != '':
+            return redirect(f'/userName/{charm}')
+        else:
+            return redirect(f'/allPeople')
+
+
+#Search people by Charm
+@app.route("/user/<charm>")
+def userName(name):
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:chinmayadbserver.database.windows.net,1433;Database=quiz1;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM people WHERE charm = ?""", charm)
+    user = cursor.fetchone()
+    conn.commit()
+    conn.close()
+    data = []
+    blob_client = container_client.get_blob_client(user.Picture)
+    imageUrl = "_"
+    if user.Picture != None:
+        imageUrl = getImageUrl(user.Picture)
+    data.append(Person(user.object, user.min, user.max, user.picture, user.charm, imageUrl))
+    return render_template('user.html', data = data)
+
+
+
+ 14. Show us, in a link, the application running and we will ttry it out. Only for parts 10, 11, 12, 13 
+
+https://webappassignment1.azurewebsites.net/
+
+
+ 15. When complete, return (send) this quiz
+     If you finish early, send this immediately, otherwise send between
+     the end of class and no more than 1 minute after that.
+

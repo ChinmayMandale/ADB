@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <title>ADB Assignment 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+</head>
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Assignment 2</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+    <div class="container">
+
+        <h4>Total count = {{result | length}}</h4>
+
+        <table>
+          <tr>
+            <th>Time</th>
+            <th>latitude</th>
+            <th>longitude</th>
+            <th>dethth</th>
+            <th>mag</th>
+            <th>magType</th>
+            <th>nst</th>
+            <th>gap</th>
+            <th>dmin</th>
+            <th>rms</th>
+            <th>net</th>
+            <th>id</th>
+            <th>updated</th>
+            <th>place</th>
+            <th>type</th>
+            <th>horizontalError</th>
+            <th>depthError</th>
+            <th>magError</th>
+            <th>magNst</th>
+            <th>status</th>
+            <th>locationSource</th>
+            <th>magSource</th>
+          </tr>
+            {% for res in result %}
+          <tr>
+              <td>{{ res[0] }}</td>
+              <td>{{ res[1] }}</td>
+              <td>{{ res[2] }}</td>
+              <td>{{ res[3] }}</td>
+              <td>{{ res[4] }}</td>
+              <td>{{ res[5] }}</td>
+              <td>{{ res[6] }}</td>
+              <td>{{ res[7] }}</td>
+              <td>{{ res[8] }}</td>
+              <td>{{ res[9] }}</td>
+              <td>{{ res[10] }}</td>
+              <td>{{ res[11] }}</td>
+              <td>{{ res[12] }}</td>
+              <td>{{ res[13] }}</td>
+              <td>{{ res[14] }}</td>
+              <td>{{ res[15] }}</td>
+              <td>{{ res[16] }}</td>
+              <td>{{ res[17] }}</td>
+              <td>{{ res[18] }}</td>
+              <td>{{ res[19] }}</td>
+              <td>{{ res[20] }}</td>
+              <td>{{ res[21] }}</td>
+          </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

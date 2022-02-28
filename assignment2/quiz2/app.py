@@ -29,6 +29,11 @@ def data():
         place = request.form.get("place")
         degrees = request.form.get("degrees")
         latitude = request.form.get("latitude")
+        typeValue = request.form.get("typeValue")
+        netValue = request.form.get("netValue")
+        typeToUpdate = request.form.get("typeToUpdate")
+        netToUpdate = request.form.get("netToUpdate")
+        placeToUpdate = request.form.get("placeToUpdate")
 
         if magnitude != None:
             result = searchByMagnitude(magnitude)
@@ -51,6 +56,12 @@ def data():
             else:
                 result = searchByNet(net)
                 return render_template('data.html', result=result)
+        elif netValue != None and typeValue != None:
+            result = fetchByNetAndType(netValue, typeValue)
+            return render_template('data.html', result=result)
+        elif netToUpdate != None and typeToUpdate != None and placeToUpdate != None:
+            result = updatePlace(netToUpdate, typeToUpdate, placeToUpdate)
+            return render_template('data.html', result=result)
         # elif startTimeHr != None and endTimeHr != None:
         #     floatStart = float(startTimeHr)
         #     floatEnd = float(endTimeHr)
@@ -76,6 +87,26 @@ def formLatitudeRange():
 def formMagRangePlace():
     return render_template('formMagRangePlace.html')
 
+
+@app.route("/formNetTypeValue")
+def formNetTypeValue():
+    return render_template('formNetTypeValue.html')
+
+@app.route("/formUpdateNetTypePlaceValue")
+def formUpdateNetTypePlaceValue():
+    return render_template('formUpdateNetTypePlaceValue.html')
+
+
+def updatePlace(net,type,place):
+    conn = pyodbc.connect(
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""update [dbo].[eq] set place=? where net=? and type=?""", place,net,type )
+    cursor.execute("""SELECT * FROM [dbo].[eq] where net=? and type=?""", net, type)
+    earthquakes = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return earthquakes
 
 #
 # #Form for search criteria
@@ -121,7 +152,7 @@ def formMagRangePlace():
 #Search All Earthquakes
 def allData():
     conn = pyodbc.connect(
-        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM [dbo].[eq]""")
     earthquakes = cursor.fetchall()
@@ -142,7 +173,7 @@ def searchByDistance(latitude, degrees):
     minLatitude = latitude - degrees
 
     conn = pyodbc.connect(
-        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM [dbo].[eq] WHERE latitude >= ? AND latitude <= ?""", minLatitude, maxLatitude)
     earthquakes = cursor.fetchall()
@@ -154,7 +185,7 @@ def searchByDistance(latitude, degrees):
 #Search Earthquake by Magnitude
 def searchByMagnitude(magnitude):
     print(searchByMagnitude)
-    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM [dbo].[eq] WHERE mag >= ?""", magnitude)
     earthquakes = cursor.fetchall()
@@ -164,7 +195,7 @@ def searchByMagnitude(magnitude):
 
 def searchByNet(net):
     conn = pyodbc.connect(
-        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM [dbo].[eq] WHERE net=?""", net)
     earthquakes = cursor.fetchall()
@@ -172,10 +203,21 @@ def searchByNet(net):
     conn.close()
     return earthquakes
 
+def fetchByNetAndType(netValue, typeValue):
+    conn = pyodbc.connect(
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    cursor = conn.cursor()
+    cursor.execute("""SELECT * FROM [dbo].[eq] WHERE net=? AND type=?""", netValue, typeValue)
+    earthquakes = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return earthquakes
+
+
 
 def updateNetValue(net, value):
     conn = pyodbc.connect(
-        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+        'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     
     cursor.execute("""update [dbo].[eq] set gap = ? where net = ?;""", value, net)
@@ -189,7 +231,7 @@ def updateNetValue(net, value):
 
 #Search Earthquake by Magnitude Range
 def searchByRange(range1,range2, place):
-    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM [dbo].[eq] WHERE mag >= ? AND mag <= ? and place like concat('%', ?, '%')""", range1, range2, place)
     earthquakes = cursor.fetchall()

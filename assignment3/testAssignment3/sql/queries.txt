@@ -1,0 +1,15 @@
+//Query 1000 times
+//https://stackoverflow.com/questions/11675077/measure-the-time-it-takes-to-execute-a-t-sql-query
+
+DECLARE @t1 DATETIME;
+DECLARE @t2 DATETIME;
+
+SET @t1 = GETDATE();
+DECLARE @i int = 0
+WHILE @i < 1000
+BEGIN
+    SET @i = @i + 1
+    SELECT *  FROM [dbo].[eq]
+END;
+SET @t2 = GETDATE();
+SELECT DATEDIFF(millisecond,@t1,@t2) AS [elapsed_ms], @t1 as [t1], @t2 as [t2];

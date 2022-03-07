@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pyodbc
 import math
-
+from datetime import datetime,timedelta
+from time import time
+import sqlite3
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -153,22 +155,34 @@ def updatePlace(net,type,place):
 def allData():
     conn = pyodbc.connect(
         'Driver={ODBC Driver 17 for SQL Server};Server=tcp:adbserver.database.windows.net,1433;Database=quiz2db;Uid=chinmay;Pwd={Chinu@2516};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+    connection = sqlite3.connect(databaseName)
     cursor = conn.cursor()
-    cursor.executemany("""DECLARE @t1 DATETIME;DECLARE @t2 DATETIME;SET @t1 = GETDATE();
-        DECLARE @i int = 0
-        WHILE @i < 3
+    # cursor.execute("""DECLARE @t1 DATETIME;
+    #     SET @t1 = GETDATE();
+    #     SELECT @t1;""")
+    t1 = time()
+
+    queries = """DECLARE @i int = 0;
+        WHILE @i < 1000
         BEGIN
             SET @i = @i + 1
             SELECT COUNT(*)  FROM [dbo].[eq]
-        END;
-        
-        SET @t2 = GETDATE();
-        SELECT DATEDIFF(millisecond,@t1,@t2) AS [elapsed_ms], @t1 as [t1], @t2 as [t2];
-    """)
-    earthquakes = cursor.fetchall()
+        END;"""
+    cursor.executescript(queries)
+    result = cursor.fetchall()
+    # cursor.execute("""
+    #     DECLARE @t2 DATETIME;
+    #     SET @t2 = GETDATE();
+    #     SELECT @t2;""")
+    t2 = time()
+
+    print(result)
+    print(t2-t1)
+
+
     conn.commit()
     conn.close()
-    return earthquakes
+    return "earthquakes"
 
 
 def radToDegrees(radians):

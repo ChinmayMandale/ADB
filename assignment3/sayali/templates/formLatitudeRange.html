@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>ADB Quiz 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+</head>
+
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Quiz 3</a></h1>
+<h1>Sayali Deshmukh</h1>
+<h1>1001966628</h1>
+<div>
+    <form method="POST" action="/data">
+        <label>CODE: </label>
+        <input type="text" name="code" id="code"><br/>
+        <label>No of top items to select with matching code: </label>
+        <input type="text" name="codeNum" id="codeNum"><br/>
+        <label>No of times to run query: </label>
+        <input type="text" name="n" id="n"><br/>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

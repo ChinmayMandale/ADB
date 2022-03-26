@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>ADB Quiz 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+</head>
+
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Quiz 2</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+<div>
+    <form method="POST" action="/data">
+        <label>ID Range 1: </label>
+        <input type="text" name="range1" id="range1"><br/>
+        <label>ID Range 2: </label>
+        <input type="text" name="range2" id="range2"><br/>
+        <label>No of times: </label>
+        <input type="text" name="n" id="n"><br/>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

@@ -2,6 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d23d272c-0f61-4191-bcc9-cec561db5bf5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../assignment4/d3-flask-blog-post-master/d3-flask-blog-post-master/.idea/d3-flask-blog-post-master.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.deployment" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.idea/testAssignment4.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/.vscode/settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/barchart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/barchart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/data.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/formMagnitude.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/formMagnitudeRange.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/formTopValues.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/formTypeOfGraph.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/lineChart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/linechart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/piechart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../assignment4/testAssignment4/templates/piechart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +49,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../assignment2/testAssignment2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">

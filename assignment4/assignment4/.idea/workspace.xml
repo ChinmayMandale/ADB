@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f3873b90-5d35-452d-b53d-235f491449eb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../d3-flask-blog-post-master/d3-flask-blog-post-master/.idea/d3-flask-blog-post-master.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/.idea/quiz4.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/barchart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/data.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/formMagnitude.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/formMagnitudeRange.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/formTopValues.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/formTypeOfGraph.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/lineChart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../quiz4/templates/piechart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testAssignment4.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../assignment1/projectassignment1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../assignment1/projectassignment1/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="272PSuzZUEILEgeUM8QSOkJfxw0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="assignment4" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\ojasb\OneDrive\Desktop\Chinmay\ADB\ADB\assignment4\assignment4\app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3873b90-5d35-452d-b53d-235f491449eb" name="Changes" comment="" />
+      <created>1648515211052</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648515211052</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

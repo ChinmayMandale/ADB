@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+<head>
+    <title>ADB Quiz 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+
+
+    <style> /* set the CSS */
+        body { font: 12px Arial;}
+        path {
+          stroke-width: 2;
+          fill: none;
+        }
+        .axis path, .axis line {
+          fill: none;
+          stroke: grey;
+          stroke-width: 1;
+          shape-rendering: crispEdges;
+        }
+        .area {
+          fill: #F0F8FF;
+          stroke-width: 0;
+        }
+
+        .bar {
+            fill: steelblue;
+        }
+
+ .arc text {
+            font: 10px sans-serif;
+            text-anchor: middle;
+        }
+
+        .arc path {
+            stroke: #786;
+        }
+
+        .title {
+            fill: teal;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Quiz 4</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+
+
+<div id="my_dataviz"></div>
+
+<p><a href="{{ url_for('lineChart') }}">Line Graph</a></p>
+<p><a href="{{ url_for('barChart') }}">Bar Graph</a></p>
+<p><a href="{{ url_for('pieChart') }}">Pie Chart</a></p>
+
+
+<!--<script src="https://d3js.org/d3.v3.min.js"></script>-->
+<!--<script>-->
+<!--    var graphData = {{ result[1] | safe }}-->
+
+<!--    console.log(graphData)-->
+
+<!--    // Set the dimensions of the svg-->
+<!--    var margin = {top: 30, right: 50, bottom: 30, left: 50};-->
+<!--    var svgWidth = 1750;-->
+<!--    var svgHeight = 600;-->
+<!--    var graphWidth = svgWidth - margin.left - margin.right;-->
+<!--    var graphHeight = svgHeight - margin.top - margin.bottom;-->
+
+<!--    // Set the ranges-->
+<!--    var x = d3.scale.linear().range([0, graphWidth]);-->
+<!--    var y = d3.scale.linear().range([graphHeight, 0]);-->
+
+<!--    // Define the axes-->
+<!--    var xAxis = d3.svg.axis().scale(x)-->
+<!--        .orient("bottom").ticks(5);-->
+<!--    var yAxis = d3.svg.axis().scale(y)-->
+<!--        .orient("left").ticks(5);-->
+
+<!--    // Define the High line-->
+<!--    var highLine = d3.svg.line()-->
+<!--        .x(function(d) { return x(d.depth); })-->
+<!--        .y(function(d) { return y(d.mag); });-->
+
+
+<!--    // Adds the svg canvas-->
+<!--    var svg = d3.select("#graphDiv")-->
+<!--      .append("svg")-->
+<!--        .attr("width", svgWidth)-->
+<!--        .attr("height", svgHeight)-->
+<!--      .append("g")-->
+<!--        .attr("transform",-->
+<!--        "translate(" + margin.left + "," + margin.top + ")")-->
+
+<!--    // define function-->
+<!--    function draw(data) {-->
+<!--      data.forEach(function(d) {-->
+<!--        d.depth = +d.depth;-->
+<!--        d.mag = +d.mag;-->
+<!--      });-->
+<!--      // Scale the range of the data-->
+<!--      x.domain(d3.extent(data, function(d) { return d.depth; }));-->
+<!--      y.domain([d3.min(data, function(d) {-->
+<!--          return Math.min(d.mag) }),-->
+<!--          d3.max(data, function(d) {-->
+<!--          return Math.max(d.mag) })]);-->
+<!--      // Add the area path.-->
+
+<!--      // Add the 2 valueline paths.-->
+<!--      svg.append("path")-->
+<!--        .style("stroke", "blue")-->
+<!--        .style("fill", "none")-->
+<!--        .attr("class", "line")-->
+<!--        .attr("d", highLine(data));-->
+
+<!--      // Add the X Axis-->
+<!--      svg.append("g")-->
+<!--        .attr("class", "x axis")-->
+<!--        .attr("transform", "translate(0," + graphHeight + ")")-->
+<!--        .text("Depth")-->
+<!--          .call(xAxis);-->
+<!--      // Add the Y Axis-->
+<!--      svg.append("g")-->
+<!--        .attr("class", "y axis")-->
+<!--        .text("Magnitude")-->
+<!--        .call(yAxis);-->
+
+<!--        svg.append("text")-->
+<!--        .attr("class", "x label")-->
+<!--        .attr("text-anchor", "end")-->
+<!--        .attr("x", width)-->
+<!--        .attr("y", height - 6)-->
+<!--        .text("Depth");-->
+
+<!--        svg.append("text")-->
+<!--        .attr("class", "y label")-->
+<!--        .attr("text-anchor", "end")-->
+<!--        .attr("y", 6)-->
+<!--        .attr("dy", ".75em")-->
+<!--        .attr("transform", "rotate(-90)")-->
+<!--        .text("Magnitude");-->
+
+<!--      svg.append("text")-->
+<!--        .attr("transform", "translate("+(graphWidth+3)+","+y(graphData[0].mag)+")")-->
+<!--        .attr("dy", ".35em")-->
+<!--        .attr("text-anchor", "start")-->
+<!--        .style("fill", "green")-->
+<!--        .text("Depth");-->
+
+<!--    };-->
+
+<!--draw(graphData);-->
+
+<!--</script>-->
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+
+<script>
+    var graphData = {{ result | safe }}
+
+
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+//Read the data
+function draw(data) {
+
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain([0, 4000])
+    .range([ 0, width ]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 500000])
+    .range([ height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Add dots
+  svg.append('g')
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(d.depth); } )
+      .attr("cy", function (d) { return y(d.mag); } )
+      .attr("r", 1.5)
+      .style("fill", "#69b3a2")
+
+}
+
+draw(graphData)
+</script>
+
+<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+
+
+<!--<svg width="1700" height="600"></svg>-->
+
+<!--<script>-->
+
+<!--    var graphData = {{ result[1] | safe }}-->
+
+<!--    console.log(graphData)-->
+
+<!--    var svg = d3.select("svg"),-->
+<!--        margin = 200,-->
+<!--        width = svg.attr("width") - margin,-->
+<!--        height = svg.attr("height") - margin-->
+
+<!--    svg.append("text")-->
+<!--       .attr("transform", "translate(100,0)")-->
+<!--       .attr("x", 50)-->
+<!--       .attr("y", 50)-->
+<!--       .attr("font-size", "24px")-->
+<!--       .text("Count of earthquakes vs Range of magnitude")-->
+
+<!--    var xScale = d3.scaleBand().range([0, width]).padding(0.4),-->
+<!--        yScale = d3.scaleLinear().range([height, 0]);-->
+
+<!--    var g = svg.append("g")-->
+<!--               .attr("transform", "translate(" + 100 + "," + 100 + ")");-->
+
+<!--    function draw(data) {-->
+
+<!--        xScale.domain(data.map(function(d) { return d.x; }));-->
+<!--        yScale.domain([0, d3.max(data, function(d) { return d.y; })]);-->
+
+<!--        g.append("g")-->
+<!--         .attr("transform", "translate(0," + height + ")")-->
+<!--         .call(d3.axisBottom(xScale))-->
+<!--         .append("text")-->
+<!--         .attr("y", height - 250)-->
+<!--         .attr("x", width - 100)-->
+<!--         .attr("text-anchor", "end")-->
+<!--         .attr("stroke", "black")-->
+<!--         .text("Range");-->
+
+<!--        g.append("g")-->
+<!--         .call(d3.axisLeft(yScale).tickFormat(function(d){-->
+<!--             return d;-->
+<!--         })-->
+<!--         .ticks(10))-->
+<!--         .append("text")-->
+<!--         .attr("transform", "rotate(-90)")-->
+<!--         .attr("y", 6)-->
+<!--         .attr("dy", "-5.1em")-->
+<!--         .attr("text-anchor", "end")-->
+<!--         .attr("stroke", "black")-->
+<!--         .text("Count");-->
+
+<!--        g.selectAll(".bar")-->
+<!--         .data(data)-->
+<!--         .enter().append("rect")-->
+<!--         .attr("class", "bar")-->
+<!--         .attr("x", function(d) { return xScale(d.x); })-->
+<!--         .attr("y", function(d) { return yScale(d.y); })-->
+<!--         .attr("width", xScale.bandwidth())-->
+<!--         .attr("height", function(d) { return height - yScale(d.y); });-->
+<!--    };-->
+
+<!--    draw(graphData);-->
+
+<!--</script>-->
+
+<div class="container">
+
+    <h4>Total count = {{result[0] | length}}</h4>
+
+    <table>
+        <tr>
+            <th>time</th>
+            <th>latitude</th>
+            <th>longitude</th>
+            <th>depth</th>
+            <th>mag</th>
+            <th>magType</th>
+            <th>nst</th>
+            <th>gap</th>
+            <th>dmin</th>
+            <th>rms</th>
+            <th>net</th>
+            <th>id</th>
+            <th>updated</th>
+            <th>place</th>
+            <th>type</th>
+            <th>horizontalError</th>
+            <th>depthError</th>
+            <th>magError</th>
+            <th>magNst</th>
+            <th>status</th>
+            <th>locationSource</th>
+            <th>magSource</th>
+        </tr>
+        {% for res in result[0] %}
+        <tr>
+            <td>{{ res.time }}</td>
+            <td>{{ res.latitude }}</td>
+            <td>{{ res.longitude }}</td>
+            <td>{{ res.depth }}</td>
+            <td>{{ res.mag }}</td>
+            <td>{{ res.magType }}</td>
+            <td>{{ res.nst }}</td>
+            <td>{{ res.gap }}</td>
+            <td>{{ res.dmin }}</td>
+            <td>{{ res.rms }}</td>
+            <td>{{ res.net }}</td>
+            <td>{{ res.id }}</td>
+            <td>{{ res.updated }}</td>
+            <td>{{ res.place }}</td>
+            <td>{{ res.type }}</td>
+            <td>{{ res.horizontalError }}</td>
+            <td>{{ res.depthError }}</td>
+            <td>{{ res.magError }}</td>
+            <td>{{ res.magNst }}</td>
+            <td>{{ res.status }}</td>
+            <td>{{ res.locationSource }}</td>
+            <td>{{ res.magSource }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

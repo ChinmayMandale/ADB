@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+    <title>ADB quiz 4</title>
+
+    <style> /* set the CSS */
+        body { font: 12px Arial;}
+        path {
+          stroke-width: 2;
+          fill: none;
+        }
+        .axis path, .axis line {
+          fill: none;
+          stroke: grey;
+          stroke-width: 1;
+          shape-rendering: crispEdges;
+        }
+        .area {
+          fill: #F0F8FF;
+          stroke-width: 0;
+        }
+
+        .bar {
+            fill: steelblue;
+        }
+
+        .arc text {
+            font: 10px sans-serif;
+            text-anchor: middle;
+        }
+
+        .arc path {
+            stroke: #786;
+        }
+
+        .title {
+            fill: teal;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1><a href="{{ url_for('index') }}">ADB quiz 4</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+
+
+<div id='graphDiv'></div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<svg width="500" height="400"></svg>
+    <script>
+
+        var graphData = {{ result[1] | safe }}
+
+        console.log(graphData)
+
+        var svg = d3.select("svg"),
+            width = svg.attr("width"),
+            height = svg.attr("height"),
+            radius = Math.min(width, height) / 2;
+
+        var g = svg.append("g")
+                   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c','#ff7eb8','#377eff','#007eb8']);
+
+        var pie = d3.pie().value(function(d) {
+                return d.y;
+            });
+
+        var path = d3.arc()
+                     .outerRadius(radius - 10)
+                     .innerRadius(0);
+
+        var label = d3.arc()
+                      .outerRadius(radius)
+                      .innerRadius(radius - 80);
+
+        function draw(data) {
+
+            var arc = g.selectAll(".arc")
+                       .data(pie(data))
+                       .enter().append("g")
+                       .attr("class", "arc");
+
+            arc.append("path")
+               .attr("d", path)
+               .attr("fill", function(d) { return color(d.data.x); });
+
+            console.log(arc)
+
+            arc.append("text")
+               .attr("transform", function(d) {
+                        return "translate(" + label.centroid(d) + ")";
+                })
+               .text(function(d) { return d.data.x; });
+            };
+
+            svg.append("g")
+               .attr("transform", "translate(" + (width / 2 - 120) + "," + 20 + ")")
+               .append("text")
+               .text("Pie Chart")
+               .attr("class", "title")
+
+      draw(graphData);
+    </script>
+
+<div class="container">
+
+    <h4>Total count = {{result[0] | length}}</h4>
+
+    <table>
+        <tr>
+            <th>time</th>
+            <th>latitude</th>
+            <th>longitude</th>
+            <th>depth</th>
+            <th>mag</th>
+            <th>magType</th>
+            <th>nst</th>
+            <th>gap</th>
+            <th>dmin</th>
+            <th>rms</th>
+            <th>net</th>
+            <th>id</th>
+            <th>updated</th>
+            <th>place</th>
+            <th>type</th>
+            <th>horizontalError</th>
+            <th>depthError</th>
+            <th>magError</th>
+            <th>magNst</th>
+            <th>status</th>
+            <th>locationSource</th>
+            <th>magSource</th>
+        </tr>
+        {% for res in result[0] %}
+        <tr>
+            <td>{{ res.time }}</td>
+            <td>{{ res.latitude }}</td>
+            <td>{{ res.longitude }}</td>
+            <td>{{ res.depth }}</td>
+            <td>{{ res.mag }}</td>
+            <td>{{ res.magType }}</td>
+            <td>{{ res.nst }}</td>
+            <td>{{ res.gap }}</td>
+            <td>{{ res.dmin }}</td>
+            <td>{{ res.rms }}</td>
+            <td>{{ res.net }}</td>
+            <td>{{ res.id }}</td>
+            <td>{{ res.updated }}</td>
+            <td>{{ res.place }}</td>
+            <td>{{ res.type }}</td>
+            <td>{{ res.horizontalError }}</td>
+            <td>{{ res.depthError }}</td>
+            <td>{{ res.magError }}</td>
+            <td>{{ res.magNst }}</td>
+            <td>{{ res.status }}</td>
+            <td>{{ res.locationSource }}</td>
+            <td>{{ res.magSource }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

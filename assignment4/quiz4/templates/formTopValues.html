@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>ADB Assignment 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+</head>
+
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Assignment 2</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+<div>
+    <form method="POST" action="/data">
+        <label>Num of Top x values: </label>
+        <input type="text" name="top" id="top"><br/>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

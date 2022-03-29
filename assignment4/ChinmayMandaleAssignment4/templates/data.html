@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <title>ADB Assignment 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="../static/css/add_s_data.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawsome/css/all.css">
+
+
+    <style> /* set the CSS */
+        body { font: 12px Arial;}
+        path {
+          stroke-width: 2;
+          fill: none;
+        }
+        .axis path, .axis line {
+          fill: none;
+          stroke: grey;
+          stroke-width: 1;
+          shape-rendering: crispEdges;
+        }
+        .area {
+          fill: #F0F8FF;
+          stroke-width: 0;
+        }
+
+        .bar {
+            fill: steelblue;
+        }
+
+ .arc text {
+            font: 10px sans-serif;
+            text-anchor: middle;
+        }
+
+        .arc path {
+            stroke: #786;
+        }
+
+        .title {
+            fill: teal;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Assignment 4</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+
+
+<div id='graphDiv'></div>
+
+<p><a href="{{ url_for('lineChart') }}">Line Graph</a></p>
+<p><a href="{{ url_for('scatterGraph') }}">Scatter Graph</a></p>
+<p><a href="{{ url_for('barChart') }}">Bar Graph</a></p>
+<p><a href="{{ url_for('pieChart') }}">Pie Chart</a></p>
+
+
+</body>
+</html>

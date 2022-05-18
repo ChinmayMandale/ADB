@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>ADB Assignment 6</title>
+</head>
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Assignment 6</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+    <div class="container">
+
+        <h4> Pile 1 has: {{result[0]}}</h4>
+        <h4> Pile 2 has: {{result[1]}}</h4>
+        <h4> Pile 3 has: {{result[2]}}</h4>
+
+        <h4> Minimum stones to be picked: {{result[3] }}</h4>
+        <h4> Maximum stones to be picked: {{result[4] }}</h4>
+
+        <form method="POST" action="/userEntry">
+            <label>Enter Player 1 Name: </label>
+            <input type="text" name="player1" id="player1"><br/>
+            <label>Enter Player 2 Name: </label>
+            <input type="text" name="player2" id="player2"><br/>
+            <label>Enter Judge Name: </label>
+            <input type="text" name="judge" id="judge"><br/>
+
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
+</body>
+</html>

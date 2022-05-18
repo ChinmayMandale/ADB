@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="utf-8">
+    <title>ADB Assignment 6</title>
+</head>
+
+<body>
+<h1><a href="{{ url_for('index') }}">ADB Assignment 6</a></h1>
+<h1>Chinmay Mandale</h1>
+<h1>1001995246</h1>
+<div>
+    <h2> Pile 1 Stones Left: {{pile1}}</h2>
+
+    <h2> Pile 2 Stones Left: {{pile2}}</h2>
+
+    <h2> Pile 3 Stones Left: {{pile3}}</h2>
+
+
+    <h2> Player 1: {{player1Name}}</h2>
+
+    <h2> Player 2: {{player2Name}}</h2>
+
+
+
+    <form method="POST" action="/data">
+        <label>Stones to remove: </label>
+        <input type="text" name="stonesToRemove" id="stonesToRemove"><br/>
+        <label>Pile Chosen: </label>
+        <input type="text" name="pileChosen" id="pileChosen"><br/>
+        <label>No of times to run query: </label>
+        <input type="text" name="n" id="n"><br/>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

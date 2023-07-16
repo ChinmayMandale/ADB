@@ -1,3 +1,0 @@
-flask
-pyodbc
-redis
